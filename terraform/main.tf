@@ -1,7 +1,22 @@
-# 1. Creación de la API HTTP
+# 1. Creación de la API HTTP 
 resource "aws_apigatewayv2_api" "mi_api_gateway" {
   name          = "Mi_Api_GateWay"
   protocol_type = "HTTP"
+
+  # Configuración de CORS según el tutorial del ava
+  cors_configuration {
+    # Access-Control-Allow-Origin: Usamos "*" para Desarrollo (Permite todo)
+    allow_origins = ["*"]
+    
+    # Access-Control-Allow-Methods: Los verbos HTTP que usas
+    allow_methods = ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+    
+    # Access-Control-Allow-Headers: Lista de headers que tu frontend enviará
+    allow_headers = ["Content-Type", "Authorization", "X-Amz-Date", "X-Api-Key"]
+    
+    # Access-Control-Max-Age: Basado en la imagen de la consola del tutorial
+    max_age = 0
+  }
 }
 
 # 2. Creación de la Integración (Apuntando a mindicador.cl)
